@@ -5,7 +5,7 @@ br {
   line-height: 1.6em;
 }
 
-
+div#map {min-height: 360px;}
 
 ol,
 ul {

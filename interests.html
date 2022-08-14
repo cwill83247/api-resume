@@ -193,7 +193,21 @@
         </div>
     </footer>
     <script>
-        var APIkey ="AIzaSyBZpJvqN03GHHetnJM1fHuKTzHVCC8nq-s"
+        function initMap() {
+        var map = new google.maps.Map(document.getElementById("map"), {          //this is provided by Google - but the map element by id is referncing my map div...  
+            zoom:3,
+            center: {
+                lat: 46.619261,
+                lng: -33.134766
+            }
+        });
+    }
+    </script>
+         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZpJvqN03GHHetnJM1fHuKTzHVCC8nq-s&callback=initMap"></script> <!--these improve page loading time
+    we also have a calback called initMap  **we need to create**-->
+    <script>
+    var APIkey ="AIzaSyBZpJvqN03GHHetnJM1fHuKTzHVCC8nq-s"
     </script>
 </body>
 
