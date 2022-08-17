@@ -38,6 +38,9 @@ function repoInformationHTML(repos) {       //the repose part is returned by the
 }
 
 function fetchGitHubInformation(event) {             //function name   this what we call ont he onImput event
+    $("#gh-user-data").html("");
+    $("#gh-repo-data").html("");
+  
     var username = $("#gh-username").val();          //value that is in the gh-username field   the .val gets the value
     if (!username) {                                    //if no username present  so blank
         $("#gh-user-data").html(`<h2>Please enter a GitHub username</h2>`);        //ask to enter username in the user data DIV
@@ -66,7 +69,11 @@ $.when(                                                             //start of t
         if (errorResponse.status === 404) {                                 //this is part of syntax  the 404 are standard numbers
             $("#gh-user-data").html(
                 `<h2>No info found for user ${username}</h2>`);
-        } else {
+            } else if (errorResponse.status === 403) {                         //error message for API throttling   erroResponse is built in. 
+                var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset') * 1000);   //new date part is standard syntax... and builtin we create a var to hold value.
+                $("#gh-user-data").html(`<h4>Too many requests, please wait until ${resetTime.toLocaleTimeString()}</h4>`);  //turning it into a readable format printing local time form browser and displaying it 
+        
+            } else {
             console.log(errorResponse);                                            
             $("#gh-user-data").html(
                 `<h2>Error: ${errorResponse.responseJSON.message}</h2>`);   //it puts into our div the error  
@@ -74,3 +81,4 @@ $.when(                                                             //start of t
     });
 
 }
+$(document).ready(fetchGitHubInformation);   //when dom loads basically go and get a prpfile and display it 
